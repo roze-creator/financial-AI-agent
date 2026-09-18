@@ -1,149 +1,127 @@
-# 🤖 Agente Financeiro Inteligente com IA Generativa
+# 💚 Burry — Assistente Financeiro Inteligente
 
-## Contexto
+Assistente financeira com IA Generativa que conhece o perfil, as transações e as metas do cliente — e responde de forma **proativa**, **personalizada** e **sem alucinar dados**.
 
-Os assistentes virtuais no setor financeiro estão evoluindo de simples chatbots reativos para **agentes inteligentes e proativos**. Neste desafio, você vai idealizar e prototipar um agente financeiro que utiliza IA Generativa para:
-
-- **Antecipar necessidades** ao invés de apenas responder perguntas
-- **Personalizar** sugestões com base no contexto de cada cliente
-- **Cocriar soluções** financeiras de forma consultiva
-- **Garantir segurança** e confiabilidade nas respostas (anti-alucinação)
-
-> [!TIP]
-> Na pasta [`examples/`](./examples/) você encontra referências de implementação para cada etapa deste desafio.
+Projeto desenvolvido para o desafio **DIO: Agente Financeiro Inteligente com IA Generativa**.
 
 ---
 
-## O Que Você Deve Entregar
+## 📌 Sobre o Projeto
 
-### 1. Documentação do Agente
+Muitos brasileiros têm dificuldade de entender e controlar suas finanças pessoais. Consultoria financeira humana é cara e os apps bancários tradicionais só respondem quando o cliente pergunta — de forma genérica.
 
-Defina **o que** seu agente faz e **como** ele funciona:
-
-- **Caso de Uso:** Qual problema financeiro ele resolve? (ex: consultoria de investimentos, planejamento de metas, alertas de gastos)
-- **Persona e Tom de Voz:** Como o agente se comporta e se comunica?
-- **Arquitetura:** Fluxo de dados e integração com a base de conhecimento
-- **Segurança:** Como evitar alucinações e garantir respostas confiáveis?
-
-📄 **Template:** [`docs/01-documentacao-agente.md`](./docs/01-documentacao-agente.md)
+O **Burry** resolve isso: em vez de apenas responder dúvidas, ele **antecipa necessidades** — identifica padrões de gasto, avisa quando o cliente se afasta das metas, sugere produtos financeiros compatíveis com o perfil de risco e explica conceitos financeiros de forma simples e acessível.
 
 ---
 
-### 2. Base de Conhecimento
+## ✨ Funcionalidades
 
-Utilize os **dados mockados** disponíveis na pasta [`data/`](./data/) para alimentar seu agente:
-
-| Arquivo | Formato | Descrição |
-|---------|---------|-----------|
-| `transacoes.csv` | CSV | Histórico de transações do cliente |
-| `historico_atendimento.csv` | CSV | Histórico de atendimentos anteriores |
-| `perfil_investidor.json` | JSON | Perfil e preferências do cliente |
-| `produtos_financeiros.json` | JSON | Produtos e serviços disponíveis |
-
-Você pode adaptar ou expandir esses dados conforme seu caso de uso.
-
-📄 **Template:** [`docs/02-base-conhecimento.md`](./docs/02-base-conhecimento.md)
+- 💬 **Chat consultivo** com IA Generativa (Google Gemini), com respostas em streaming
+- 📊 **Resumo financeiro em tempo real** (entradas, saídas e saldo disponível), recalculado a cada interação
+- 🎯 **Acompanhamento de metas financeiras** com barra de progresso
+- ✏️ **Edição e inserção de dados mockados** diretamente pela interface (transações e perfil do investidor)
+- 💾 **Persistência de dados** — alterações feitas no app são salvas de volta nos arquivos `CSV`/`JSON`
+- 🛡️ **Sistema anti-alucinação** — o agente só responde com base nos dados fornecidos, e admite quando não sabe algo
+- 🤖 **Seleção dinâmica de modelo Gemini**, conforme os modelos disponíveis para a API key informada
 
 ---
 
-### 3. Prompts do Agente
+## 🖥️ Como Funciona
 
-Documente os prompts que definem o comportamento do seu agente:
+1. O usuário informa o nome e sua própria **Google Gemini API Key** (gratuita).
+2. Os dados mockados (`transacoes.csv`, `perfil_investidor.json`, `produtos_financeiros.json`, `historico_atendimento.csv`) são carregados na sessão.
+3. Esses dados são transformados em texto estruturado e injetados no **system prompt** do Gemini junto com a persona do Burry e um conjunto de regras de comportamento (few-shot prompting + anti-alucinação).
+4. O usuário conversa livremente com o Burry sobre seus gastos, metas e opções de investimento.
+5. Alterações feitas no painel de configurações (nova transação, edição de perfil) atualizam o contexto e reiniciam a sessão de chat automaticamente.
 
-- **System Prompt:** Instruções gerais de comportamento e restrições
-- **Exemplos de Interação:** Cenários de uso com entrada e saída esperada
-- **Tratamento de Edge Cases:** Como o agente lida com situações limite
+### Arquitetura
 
-📄 **Template:** [`docs/03-prompts.md`](./docs/03-prompts.md)
-
----
-
-### 4. Aplicação Funcional
-
-Desenvolva um **protótipo funcional** do seu agente:
-
-- Chatbot interativo (sugestão: Streamlit, Gradio ou similar)
-- Integração com LLM (via API ou modelo local)
-- Conexão com a base de conhecimento
-
-📁 **Pasta:** [`src/`](./src/)
-
----
-
-### 5. Avaliação e Métricas
-
-Descreva como você avalia a qualidade do seu agente:
-
-**Métricas Sugeridas:**
-- Precisão/assertividade das respostas
-- Taxa de respostas seguras (sem alucinações)
-- Coerência com o perfil do cliente
-
-📄 **Template:** [`docs/04-metricas.md`](./docs/04-metricas.md)
-
----
-
-### 6. Pitch
-
-Grave um **pitch de 3 minutos** (estilo elevador) apresentando:
-
-- Qual problema seu agente resolve?
-- Como ele funciona na prática?
-- Por que essa solução é inovadora?
-
-📄 **Template:** [`docs/05-pitch.md`](./docs/05-pitch.md)
-
----
-
-## Ferramentas Sugeridas
-
-Todas as ferramentas abaixo possuem versões gratuitas:
-
-| Categoria | Ferramentas |
-|-----------|-------------|
-| **LLMs** | [ChatGPT](https://chat.openai.com/), [Copilot](https://copilot.microsoft.com/), [Gemini](https://gemini.google.com/), [Claude](https://claude.ai/), [Ollama](https://ollama.ai/) |
-| **Desenvolvimento** | [Streamlit](https://streamlit.io/), [Gradio](https://www.gradio.app/), [Google Colab](https://colab.research.google.com/) |
-| **Orquestração** | [LangChain](https://www.langchain.com/), [LangFlow](https://www.langflow.org/), [CrewAI](https://www.crewai.com/) |
-| **Diagramas** | [Mermaid](https://mermaid.js.org/), [Draw.io](https://app.diagrams.net/), [Excalidraw](https://excalidraw.com/) |
-
----
-
-## Estrutura do Repositório
-
-```
-📁 lab-agente-financeiro/
-│
-├── 📄 README.md
-│
-├── 📁 data/                          # Dados mockados para o agente
-│   ├── historico_atendimento.csv     # Histórico de atendimentos (CSV)
-│   ├── perfil_investidor.json        # Perfil do cliente (JSON)
-│   ├── produtos_financeiros.json     # Produtos disponíveis (JSON)
-│   └── transacoes.csv                # Histórico de transações (CSV)
-│
-├── 📁 docs/                          # Documentação do projeto
-│   ├── 01-documentacao-agente.md     # Caso de uso e arquitetura
-│   ├── 02-base-conhecimento.md       # Estratégia de dados
-│   ├── 03-prompts.md                 # Engenharia de prompts
-│   ├── 04-metricas.md                # Avaliação e métricas
-│   └── 05-pitch.md                   # Roteiro do pitch
-│
-├── 📁 src/                           # Código da aplicação
-│   └── app.py                        # (exemplo de estrutura)
-│
-├── 📁 assets/                        # Imagens e diagramas
-│   └── ...
-│
-└── 📁 examples/                      # Referências e exemplos
-    └── README.md
+```mermaid
+flowchart TD
+    U["👤 Usuário"] --> APP["💬 app.py (Streamlit)"]
+    APP --> STATE["🗂️ session_state<br/>transações · perfil · chat"]
+    STATE --> CTX["📝 Contexto estruturado"]
+    CTX --> SP["🧾 System Prompt<br/>(persona + regras)"]
+    SP --> GEMINI["🧠 Google Gemini API"]
+    GEMINI -->|streaming| RESP["✅ Resposta personalizada"]
+    RESP --> U
+    U -->|editar dados| MODAL["⚙️ Configurações"]
+    MODAL --> STATE
+    STATE -->|salvar| DADOS["📚 data/*.csv · *.json"]
 ```
 
 ---
 
-## Dicas Finais
+## 🛠️ Tecnologias
 
-1. **Comece pelo prompt:** Um bom system prompt é a base de um agente eficaz
-2. **Use os dados mockados:** Eles garantem consistência e evitam problemas com dados sensíveis
-3. **Foque na segurança:** No setor financeiro, evitar alucinações é crítico
-4. **Teste cenários reais:** Simule perguntas que um cliente faria de verdade
-5. **Seja direto no pitch:** 3 minutos passam rápido, vá ao ponto
+| Tecnologia | Uso |
+|---|---|
+| [Streamlit](https://streamlit.io/) | Interface web do chat |
+| [Google Gemini](https://ai.google.dev/) (`google-generativeai`) | Modelo de linguagem (LLM) |
+| [Pandas](https://pandas.pydata.org/) | Manipulação dos dados de transações |
+| CSV / JSON | Base de dados mockada do cliente |
+
+---
+
+## 🚀 Como Executar
+
+### Pré-requisitos
+- Python 3.9+
+- Uma **Google Gemini API Key** gratuita — obtenha em [aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)
+
+### Instalação
+
+```bash
+git clone https://github.com/roze-creator/financial-AI-agent.git
+cd financial-AI-agent
+pip install streamlit google-generativeai pandas
+```
+
+### Executando
+
+```bash
+python -m streamlit run src/app.py
+```
+
+O app abrirá no navegador. Insira sua API Key na barra lateral para ativar o Burry.
+
+---
+
+## 📁 Estrutura do Projeto
+
+```
+financial-AI-agent/
+├── src/
+│   └── app.py                      # Aplicação Streamlit principal
+├── data/
+│   ├── transacoes.csv              # Transações do cliente (entradas/saídas)
+│   ├── perfil_investidor.json      # Perfil, renda, metas e tolerância a risco
+│   ├── produtos_financeiros.json   # Produtos de investimento disponíveis
+│   └── historico_atendimento.csv   # Histórico de atendimentos anteriores
+├── AGENTS.md                       # Instruções do agente (fonte única de verdade)
+├── CLAUDE.md                       # Importa AGENTS.md para uso no Claude Code
+└── README.md
+```
+
+> Os dados são mockados para o cliente fictício **João Silva**, mas a aplicação foi construída para que qualquer usuário carregue seus próprios dados no mesmo formato.
+
+---
+
+## 🔒 Segurança e Anti-Alucinação
+
+- O agente responde **exclusivamente** com base nos dados fornecidos no contexto — sem busca externa
+- Nunca inventa valores, rentabilidades ou saldos
+- Admite quando não tem uma informação, em vez de "chutar"
+- Toda recomendação de produto menciona o nível de risco e reforça que não substitui uma consultoria certificada
+- Não processa dados de outros clientes, não executa transações reais e não acessa a internet
+
+### Limitações declaradas
+- Não substitui um consultor financeiro certificado (CFP)
+- Não acessa saldos ou dados bancários reais
+- Não fornece garantias de rentabilidade
+
+---
+
+## 👤 Desenvolvido por
+
+**Roz** — projeto criado para o desafio DIO *"Agente Financeiro Inteligente com IA Generativa"*.
