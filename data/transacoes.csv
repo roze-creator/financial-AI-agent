@@ -1,0 +1,12 @@
+data,descricao,categoria,valor,tipo
+2025-10-01,Salário,receita,5000.0,entrada
+2025-10-02,Aluguel,moradia,1200.0,saida
+2025-10-03,Supermercado,alimentacao,450.0,saida
+2025-10-05,Netflix,lazer,55.9,saida
+2025-10-07,Farmácia,saude,89.0,saida
+2025-10-10,Restaurante,alimentacao,120.0,saida
+2025-10-12,Uber,transporte,45.0,saida
+2025-10-15,Conta de Luz,moradia,180.0,saida
+2025-10-20,Academia,saude,99.0,saida
+2025-10-25,Combustível,transporte,250.0,saida
+2026-09-18,saída,alimentacao,600.0,saida
